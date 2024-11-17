@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -200,9 +198,9 @@
                 <input type="text" id="name" required />
             </div>
 
-            <div class="form-group">
+              <div class="form-group">
                 <label for="Email:">Email:</label>
-                <input type="text" id="email" required />
+                <input type="text" id="name" required />
             </div>
 
             <!-- Shipping Address Fields -->
@@ -277,7 +275,6 @@
 
     <!-- Script placed here -->
     <script>
-        // Existing cart functionality
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
         function renderCart() {
@@ -305,20 +302,7 @@
             cart.splice(index, 1);
             localStorage.setItem('cart', JSON.stringify(cart));
             renderCart();
-            logAction(`Removed item at index ${index}`);
         }
-
-        // Logging functionality
-        let actionLog = JSON.parse(localStorage.getItem('userActions')) || [];
-
-        function logAction(action) {
-            const timestamp = new Date().toISOString();
-            actionLog.push({ action, timestamp });
-            localStorage.setItem('userActions', JSON.stringify(actionLog));
-            console.log(`Logged: ${action} at ${timestamp}`);
-        }
-
-        document.addEventListener("DOMContentLoaded", () => logAction("Checkout Page Loaded"));
 
         // Format credit card number with dashes
         function formatCreditCard(input) {
@@ -326,7 +310,6 @@
             value = value.replace(/(\d{4})(\d{1,4})/, '$1-$2');
             value = value.replace(/(\d{4})(\d{1,4})(\d{1,4})/, '$1-$2-$3');
             input.value = value;
-            logAction("Credit Card Input Modified");
         }
 
         // Format expiration date with "/"
@@ -336,7 +319,6 @@
                 value = value.replace(/^(\d{2})(\d+)/, '$1/$2');
             }
             input.value = value;
-            logAction("Expiry Date Input Modified");
         }
 
         // Enable/Disable billing address fields based on checkbox
@@ -346,7 +328,6 @@
             billingFields.forEach(field => {
                 field.disabled = isChecked;
             });
-            logAction(isChecked ? "Billing Address Disabled" : "Billing Address Enabled");
         }
 
         window.onload = () => {
@@ -361,17 +342,9 @@
 
             // Submit Order Button click event
             document.querySelector('.submit-btn').addEventListener('click', function() {
-                logAction("Order Submitted");
                 // Redirect to the thank you page
                 window.location.href = 'https://nusiancechild.github.io/thankyoupage/';
             });
         };
-
-        function clearLog() {
-            localStorage.removeItem('userActions');
-            console.log("Action log cleared.");
-        }
     </script>
 </body>
-</html>
-

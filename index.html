@@ -283,9 +283,30 @@
         </div>
     </div>
 
-    <!-- Script placed here -->
+   <!-- Your Google Analytics Script and other scripts -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-XXXXXXXXXX');  // Replace with your GA4 tracking ID
+    </script>
+
+    <!-- Event Tracking Script -->
+    <script>
+        document.querySelector('.submit-btn').addEventListener('click', function() {
+            // Track the 'Submit Order' button click in Google Analytics
+            gtag('event', 'submit_order', {
+                'event_category': 'Checkout',
+                'event_label': 'User clicked submit order button'
+            });
+
+            // Redirect after tracking
+            window.location.href = 'https://nusiancechild.github.io/thankyoupage/';
+        });
+      
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
         function renderCart() {
             const cartContainer = document.getElementById('cart-items');

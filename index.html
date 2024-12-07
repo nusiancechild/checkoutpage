@@ -277,19 +277,6 @@
         </div>
     </div>
 
-   <!-- Event Tracking Script -->
-    <script>
-        document.querySelector('.submit-btn').addEventListener('click', function() {
-            // Track the 'Submit Order' button click in Google Analytics
-            gtag('event', 'submit_order', {
-                'event_category': 'Checkout',
-                'event_label': 'User clicked submit order button'
-            });
-
-            // Redirect after tracking
-            window.location.href = 'https://nusiancechild.github.io/thankyoupage/';
-        });
-
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
         function renderCart() {

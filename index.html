@@ -272,8 +272,32 @@
             </div>
 
             <div class="form-group">
-                <button class="submit-btn">Submit Order</button>
-            </div>
+    <button class="submit-btn" id="submit-order">Submit Order</button>
+</div>
+
+<script>
+    document.getElementById('submit-order').addEventListener('click', (event) => {
+        event.preventDefault(); // Prevent any default behavior if the form is inside a <form> tag
+
+        // Collect form data for validation or processing (optional)
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const shippingAddress = document.getElementById('shipping-address').value;
+
+        // Validate inputs (optional)
+        if (!name || !email || !shippingAddress) {
+            alert('Please fill in all required fields.');
+            return;
+        }
+
+        // Clear cart (optional, if order completion should reset the cart)
+        localStorage.removeItem('cart');
+
+        // Redirect to the thank-you page
+        window.location.href = 'thank-you.html';
+    });
+</script>
+
         </div>
     </div>
     <script>

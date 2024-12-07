@@ -347,6 +347,21 @@
     });
 });
 
+document.querySelectorAll('.product').forEach(product => {
+    product.addEventListener('click', function() {
+        const productName = product.getAttribute('data-name');
+        const productPrice = product.getAttribute('data-price');
+
+        gtag('event', 'random_click', {
+            event_category: 'ecommerce',
+            event_label: productName,
+            value: productPrice
+        });
+    });
+});
+
+
+
 
         renderCart();
     </script>

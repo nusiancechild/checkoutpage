@@ -1,7 +1,10 @@
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<!-- Fathom - beautiful, simple website analytics -->
-<script src="https://cdn.usefathom.com/script.js" data-site="ZUXPBTKX" defer></script>
-<!-- / Fathom -->
+    <!-- Fathom - beautiful, simple website analytics -->
+    <script src="https://cdn.usefathom.com/script.js" data-site="ZUXPBTKX" defer></script>
+    <!-- / Fathom -->
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +19,6 @@
             color: #333;
         }
         
-        /* Header */
         h1 {
             background-color: #001f3f; /* Navy blue */
             color: white;
@@ -27,7 +29,6 @@
             letter-spacing: 1.5px;
         }
 
-        /* Header - Home Icon */
         .home-icon {
             position: absolute;
             top: 20px;
@@ -43,7 +44,6 @@
             color: #004080;
         }
 
-        /* Checkout Layout */
         .checkout-container {
             display: flex;
             max-width: 1000px;
@@ -138,7 +138,6 @@
             background-color: #ddd;
         }
 
-        /* "Go Back to Item" button style */
         .go-back-btn {
             background-color: #ffffff;
             color: #001f3f;
@@ -167,16 +166,14 @@
             color: #004080;
         }
 
-        /* Dynamic Positioning for Go Back Button */
         .cart-details {
             position: relative;
         }
-
     </style>
 </head>
 <body>
     <!-- Home Icon -->
-    <a href="https://nusiancechild.github.io/simulationshopping/" class="home-icon">🏠</a> <!-- Redirect to shoppingbot.html -->
+    <a href="https://nusiancechild.github.io/simulationshopping/" class="home-icon">🏠</a>
 
     <h1>Checkout - E-COMMERCE SIMULATION PLATFORM</h1>
 
@@ -198,16 +195,15 @@
             <h2>Billing Information</h2>
 
             <div class="form-group">
-                <label for="Full Name:">Full Name:</label>
+                <label for="name">Full Name:</label>
                 <input type="text" id="name" required />
             </div>
 
             <div class="form-group">
-                <label for="Email:">Email:</label>
-                <input type="text" id="name" required />
+                <label for="email">Email:</label>
+                <input type="email" id="email" required />
             </div>
 
-            <!-- Shipping Address Fields -->
             <div class="form-group">
                 <label for="shipping-address">Street Address (Shipping):</label>
                 <input type="text" id="shipping-address" required />
@@ -228,13 +224,11 @@
                 <input type="text" id="shipping-zipcode" required />
             </div>
 
-            <!-- Checkbox for Billing Address -->
             <div class="form-group checkbox-container">
                 <input type="checkbox" id="same-as-shipping" onclick="toggleBillingAddress()" />
                 <label for="same-as-shipping">Same as Shipping Address</label>
             </div>
 
-            <!-- Billing Address Fields -->
             <div class="form-group">
                 <label for="billing-address">Street Address (Billing):</label>
                 <input type="text" id="billing-address" class="billing-field" />
@@ -255,7 +249,6 @@
                 <input type="text" id="billing-zipcode" class="billing-field" />
             </div>
 
-            <!-- Credit Card Information -->
             <div class="form-group">
                 <label for="credit-card">Credit Card Number:</label>
                 <input type="text" id="credit-card" required placeholder="####-####-####-####" />
@@ -272,36 +265,12 @@
             </div>
 
             <div class="form-group">
-    <button class="submit-btn" id="submit-order">Submit Order</button>
-</div>
-
-<script>
-    document.getElementById('submit-order').addEventListener('click', (event) => {
-        event.preventDefault(); // Prevent any default behavior if the form is inside a <form> tag
-
-        // Collect form data for validation or processing (optional)
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const shippingAddress = document.getElementById('shipping-address').value;
-
-        // Validate inputs (optional)
-        if (!name || !email || !shippingAddress) {
-            alert('Please fill in all required fields.');
-            return;
-        }
-
-        // Clear cart (optional, if order completion should reset the cart)
-        localStorage.removeItem('cart');
-
-        // Redirect to the thank-you page
-        window.location.href = 'https://nusiancechild.github.io/thankyoupage/;
-    });
-</script>
-
+                <button class="submit-btn" id="submit-order">Submit Order</button>
+            </div>
         </div>
     </div>
-    <script>
 
+    <script>
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
         function renderCart() {
@@ -322,7 +291,7 @@
                 total += 150;
             });
 
-            totalContainer.textContent = `Total: $${total}.00`;
+            totalContainer.textContent = `Total Price: $${total.toFixed(2)}`;
         }
 
         function removeItem(index) {
@@ -331,25 +300,30 @@
             renderCart();
         }
 
-        // Enable/Disable billing address fields based on checkbox
         function toggleBillingAddress() {
-            const isChecked = document.getElementById('same-as-shipping').checked;
             const billingFields = document.querySelectorAll('.billing-field');
+            const isDisabled = document.getElementById('same-as-shipping').checked;
+
             billingFields.forEach(field => {
-                field.disabled = isChecked;
+                field.disabled = isDisabled;
             });
         }
 
-        window.onload = () => {
-            renderCart();
+        document.getElementById('submit-order').addEventListener('click', function() {
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const shippingAddress = document.getElementById('shipping-address').value.trim();
 
-            // Set event listeners for credit card and expiration date
-            const creditCardInput = document.getElementById('credit-card');
-            const expiryDateInput = document.getElementById('expiry-date');
+            if (!name || !email || !shippingAddress) {
+                alert('Please fill in all required fields.');
+                return;
+            }
 
-            creditCardInput.addEventListener('input', () => formatCreditCard(creditCardInput));
-            expiryDateInput.addEventListener('input', () => formatExpiryDate(expiryDateInput));
-        };
+            localStorage.removeItem('cart');
+            window.location.href = 'https://nusiancechild.github.io/thankyoupage/';
+        });
+
+        renderCart();
     </script>
 </body>
-
+</html>
